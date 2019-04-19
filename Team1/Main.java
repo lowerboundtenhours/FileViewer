@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class Main {
     private static Map<String, FileView> fileViews = new HashMap<>();
+
     public static void read_file(String filename) {
         List<String> allLines = new ArrayList<String>();
         try {
@@ -17,24 +18,29 @@ public class Main {
             e.printStackTrace();
         }
         for (String line : allLines) {
-            String[] words = line.split(" ");
-            String textViewName = words[0];
-            String command = words[1];
-            FileView fileView = fileViews.get(textViewName);
-            if (command.equals("add")) {
-                String element = words[2];
-                fileView.addElement(element);
-            }
-            else if (command.equals("display")) {
-                fileViews.display();
-            } else {
-                if (fileViews != null) {
-                    throw new UnsupportedOperationException("Not implemented yet");
-                }
-                String text = command;
-            }
+            process_line(line);
+        }
+    }
 
+    private static void process_line(String line) {
+        String[] words = line.split(" ");
+        String textViewName = words[0];
+        String command = words[1];
+        FileView fileView = fileViews.get(textViewName);
 
+        if (command.equals("add")) {
+            String element = words[2];
+            fileView.addElement(element);
+        }
+        else if (command.equals("display")) {
+            fileView.display();
+        }
+        else {
+            if (fileViews != null) {
+                throw new UnsupportedOperationException("fileView already exists.");
+            }
+            String text = command;
+            fileViews.put(textViewName, new TextView(text));
         }
     }
     public static void main(String[] args) {
