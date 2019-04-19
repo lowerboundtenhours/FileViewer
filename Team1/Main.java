@@ -9,7 +9,7 @@ import java.util.Map;
 public class Main {
     private static Map<String, FileView> fileViews = new HashMap<>();
 
-    public static void read_file(String filename) {
+    public static List<String> read_file(String filename) {
         List<String> allLines = new ArrayList<String>();
         try {
             allLines = Files.readAllLines(Paths.get(filename));
@@ -17,9 +17,7 @@ public class Main {
         catch (IOException e) {
             e.printStackTrace();
         }
-        for (String line : allLines) {
-            process_line(line);
-        }
+        return allLines;
     }
 
     private static void process_line(String line) {
@@ -29,22 +27,25 @@ public class Main {
         FileView fileView = fileViews.get(textViewName);
 
         if (command.equals("add")) {
-            String element = words[2];
-            fileView.addElement(element);
+            for (int i = 2; i < words.length; i += 1)
+                fileView.addElement(words[i]);
         }
         else if (command.equals("display")) {
             fileView.display();
         }
         else {
-            if (fileViews != null) {
+            if (fileView != null) {
                 throw new UnsupportedOperationException("fileView already exists.");
             }
             String text = command;
             fileViews.put(textViewName, new TextView(text));
         }
     }
+
     public static void main(String[] args) {
         String filename = args[0];
-        read_file(filename);
+        for (String line : read_file(filename)) {
+            process_line(line);
+        }
     }
 }
