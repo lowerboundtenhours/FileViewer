@@ -1,0 +1,10 @@
+add TextView1
+add add scrollBar
+add add thickBlackBorder
+add display
+display TextView2
+display display
+display add scrollBar
+display display
+display add thickBlackBorder scrollBar
+display display
