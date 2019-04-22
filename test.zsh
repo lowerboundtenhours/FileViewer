@@ -2,6 +2,8 @@ cd Team1
 javac Main.java
 for f in ../test_cases/*.in
 do
-    java Main $f | diff $f[0,-4].out -
+    answer_file=$f[0,-4].out
+    echo Test input $f, output $answer_file
+    java Main $f | diff $answer_file -
 done
 rm *.class

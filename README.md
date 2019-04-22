@@ -10,7 +10,7 @@
 ### Requirements Statements
 In FileViewer,
 - We have a TextViewobject that displays text in a window.
-- TextViewhas no scroll bars by default, because we might not always need them.
+- TextView has no scroll bars by default, because we might not always need them.
 - We can also add a thick black border around the TextView.
 - It is highly likely that we will support various file formats for display in the future.
 
